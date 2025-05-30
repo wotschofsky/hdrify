@@ -1,0 +1,290 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, sans-serif;
+  line-height: 1.6;
+  color: #1f2937;
+  background: #ffffff;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #1f2937;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.description a {
+  color: #374151;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.description a:hover {
+  color: #1f2937;
+}
+
+.main-area {
+  position: relative;
+  min-height: 400px;
+  margin-bottom: 2rem;
+}
+
+.upload {
+  border: 1px solid #e5e7eb;
+  padding: 4rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload:hover {
+  border-color: #cbd5e1;
+}
+
+.upload.dragover {
+  border-color: #9ca3af;
+}
+
+.upload p {
+  color: #6b7280;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.upload-hint {
+  color: #9ca3af;
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+
+.image-display {
+  position: relative;
+  text-align: center;
+}
+
+.image-display img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+
+.processing-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.processing-content {
+  text-align: center;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e5e7eb;
+  border-top: 4px solid #6b7280;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.controls {
+  margin-bottom: 2rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.controls label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  gap: 1rem;
+}
+
+#hdrSlider {
+  width: 200px;
+  height: 4px;
+  background: #e5e7eb;
+  outline: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#hdrSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#hdrSlider::-webkit-slider-thumb:hover {
+  background: #374151;
+}
+
+#hdrSlider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #6b7280;
+  cursor: pointer;
+  border: none;
+}
+
+#hdrValue {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+  min-width: 2rem;
+  text-align: center;
+}
+
+.reset-btn {
+  background: transparent;
+  border: 1px solid #d1d5db;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+  color: #374151;
+  border-color: #9ca3af;
+}
+
+.error {
+  text-align: center;
+  padding: 1rem;
+  color: #dc2626;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.info {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.info p {
+  color: #6b7280;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.github-link {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.github-link a {
+  color: #6b7280;
+  font-size: 0.75rem;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.github-link a:hover {
+  color: #374151;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  .upload {
+    padding: 3rem 1.5rem;
+  }
+
+  #hdrSlider {
+    width: 160px;
+  }
+
+  .spinner {
+    width: 28px;
+    height: 28px;
+    border-width: 2px;
+  }
+}
+
+/* Focus styles for accessibility */
+button:focus,
+input[type='range']:focus {
+  outline: 2px solid #6b7280;
+  outline-offset: 2px;
+}

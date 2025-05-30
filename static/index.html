@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HDRify</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>HDRify</h1>
+      <p class="description">
+        Create HDR-infused images with eye-searing brightness that pop on supported displays.
+        Perfect for Slack emoji and standout reactions. Based on the technique from
+        <a href="https://sharpletters.net/2025/04/16/hdr-emoji/" target="_blank" rel="noopener">sharpletters.net</a>.
+        <br>
+        <br>
+        For best results, use an HDR-supporting browser like Chrome on a compatible display.
+      </p>
+    </header>
+
+    <main class="main-area">
+      <div class="upload" id="uploadArea" role="button" tabindex="0" aria-label="Upload image">
+        <p>Drop image or click to upload</p>
+        <p class="upload-hint">JPEG, PNG, WebP • Max 10MB</p>
+        <input type="file" id="imageInput" accept="image/jpeg,image/jpg,image/png,image/webp" hidden aria-label="Choose image file">
+      </div>
+
+      <div class="image-display" id="imageDisplay" style="display: none;">
+        <img id="resultImage" alt="HDR processed image">
+        <div class="processing-overlay" id="processingOverlay" style="display: none;" role="status" aria-live="polite">
+          <div class="processing-content">
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section class="controls" id="controls" style="display: none;" role="group" aria-label="HDR controls">
+      <label for="hdrSlider">
+        HDR: <span id="hdrValue" aria-live="polite">1.5</span>
+        <input type="range" id="hdrSlider" min="0.5" max="3.0" step="0.1" value="1.5" aria-label="HDR intensity level">
+      </label>
+      <button id="resetButton" class="reset-btn" type="button">
+        Reset
+      </button>
+    </section>
+
+    <div class="error" id="error" style="display: none;" role="alert">
+      <p id="errorMessage"></p>
+    </div>
+
+    <footer class="github-link">
+      <a href="https://github.com/wotschofsky/hdrify" target="_blank" rel="noopener">View on GitHub</a>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
