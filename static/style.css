@@ -63,8 +63,10 @@ h1 {
   transition: border-color 0.2s ease;
   min-height: 400px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
 }
 
 .upload:hover {
@@ -77,15 +79,11 @@ h1 {
 
 .upload p {
   color: #6b7280;
-  font-size: 1rem;
   font-weight: 400;
 }
 
-.upload-hint {
-  color: #9ca3af;
+.upload p:nth-of-type(2) {
   font-size: 0.75rem;
-  font-weight: 400;
-  margin-top: 0.5rem;
 }
 
 .image-display {
