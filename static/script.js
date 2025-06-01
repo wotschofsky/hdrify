@@ -2,6 +2,7 @@ class HDRify {
   constructor() {
     this.currentImageData = null;
     this.originalImageUrl = null;
+    this.originalFileName = null;
     this.processingTimeout = null;
     this.imageCache = new Map(); // Cache for processed images
     this.initializeElements();
@@ -18,6 +19,7 @@ class HDRify {
     this.hdrValue = document.getElementById('hdrValue');
     this.controls = document.getElementById('controls');
     this.resetButton = document.getElementById('resetButton');
+    this.downloadButton = document.getElementById('downloadButton');
     this.error = document.getElementById('error');
     this.errorMessage = document.getElementById('errorMessage');
   }
@@ -69,6 +71,17 @@ class HDRify {
     this.hdrSlider.addEventListener('input', (e) => {
       const value = parseFloat(e.target.value);
       this.updateHdrValue(value);
+
+      // Update download filename if download is enabled
+      if (this.downloadButton.hasAttribute('href')) {
+        let filename = `hdrified-image-${value}.png`;
+        if (this.originalFileName) {
+          const lastDotIndex = this.originalFileName.lastIndexOf('.');
+          const nameWithoutExt = lastDotIndex > 0 ? this.originalFileName.substring(0, lastDotIndex) : this.originalFileName;
+          filename = `${nameWithoutExt}-hdr-${value}.png`;
+        }
+        this.downloadButton.download = filename;
+      }
 
       clearTimeout(this.processingTimeout);
       this.processingTimeout = setTimeout(() => {
@@ -141,6 +154,7 @@ class HDRify {
       const imageData = e.target.result.split(',')[1];
       this.currentImageData = imageData;
       this.originalImageUrl = e.target.result;
+      this.originalFileName = file.name;
 
       // Clear cache for new image
       this.imageCache.clear();
@@ -202,6 +216,10 @@ class HDRify {
       this.resultImage.style.filter = 'blur(0px)';
       this.resultImage.style.opacity = '1.0';
 
+      // Enable download button for cached images
+      this.enableDownload(cachedImageData);
+
+      this.hideError();
       return;
     }
 
@@ -241,6 +259,9 @@ class HDRify {
         this.resultImage.style.filter = 'blur(0px)';
         this.resultImage.style.opacity = '1.0';
 
+        // Enable download button
+        this.enableDownload(result.image_data);
+
         this.hideError();
       } else {
         this.showError(result.message || 'Failed to process image');
@@ -258,16 +279,46 @@ class HDRify {
     this.resultImage.src = this.originalImageUrl;
     this.resultImage.style.filter = 'blur(0px)';
     this.resultImage.style.opacity = '1.0';
+
+    // Disable download button since we're showing original
+    this.disableDownload();
+  }
+
+  enableDownload(imageData) {
+    const hdrValue = this.hdrSlider.value;
+    const dataUrl = `data:image/png;base64,${imageData}`;
+
+    // Create filename based on original file name
+    let filename = `hdrified-image-${hdrValue}.png`;
+    if (this.originalFileName) {
+      // Remove extension from original filename
+      const lastDotIndex = this.originalFileName.lastIndexOf('.');
+      const nameWithoutExt = lastDotIndex > 0 ? this.originalFileName.substring(0, lastDotIndex) : this.originalFileName;
+      filename = `${nameWithoutExt}-hdr-${hdrValue}.png`;
+    }
+
+    // Set attributes
+    this.downloadButton.setAttribute('href', dataUrl);
+    this.downloadButton.setAttribute('download', filename);
+  }
+
+  disableDownload() {
+    this.downloadButton.removeAttribute('href');
+    this.downloadButton.removeAttribute('download');
   }
 
   reset() {
     // Clear data and cache
     this.currentImageData = null;
     this.originalImageUrl = null;
+    this.originalFileName = null;
     this.imageCache.clear();
     this.imageInput.value = '';
     this.hdrSlider.value = '1.5';
     this.hdrValue.textContent = '1.5';
+
+    // Disable download button
+    this.disableDownload();
 
     // Clear timeout
     clearTimeout(this.processingTimeout);

@@ -194,20 +194,48 @@ h1 {
   text-align: center;
 }
 
-.reset-btn {
-  background: transparent;
-  border: 1px solid #d1d5db;
+/* Shared button styles */
+.btn {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #6b7280;
   cursor: pointer;
   transition: all 0.2s ease;
+  line-height: 1.5;
+  border: 1px solid;
+  text-decoration: none;
+  display: inline-block;
+  font-family: inherit;
+}
+
+.reset-btn {
+  background: transparent;
+  border-color: #d1d5db;
+  color: #6b7280;
 }
 
 .reset-btn:hover {
   color: #374151;
   border-color: #9ca3af;
+}
+
+.download-btn {
+  background: #374151;
+  border-color: #374151;
+  color: white;
+}
+
+.download-btn[href]:hover {
+  background: #1f2937;
+  border-color: #1f2937;
+}
+
+.download-btn:not([href]) {
+  background: #e5e7eb;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .error {
@@ -365,7 +393,8 @@ h1 {
 
 /* Focus styles for accessibility */
 button:focus,
-input[type='range']:focus {
+input[type='range']:focus,
+a.btn:focus {
   outline: 2px solid #6b7280;
   outline-offset: 2px;
 }
