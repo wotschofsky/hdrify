@@ -249,6 +249,71 @@ h1 {
   color: #374151;
 }
 
+/* Examples section */
+.examples {
+  margin: 3rem 0;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.examples h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.025em;
+}
+
+.example-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.example-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.example-item img {
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.example-label {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+  letter-spacing: 0.025em;
+}
+
+.example-note {
+  color: #9ca3af;
+  font-size: 0.75rem;
+  font-style: italic;
+  margin-top: 0.5rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (max-width: 640px) {
   body {
     padding: 1rem;
@@ -277,6 +342,24 @@ h1 {
     width: 28px;
     height: 28px;
     border-width: 2px;
+  }
+
+  .examples {
+    margin: 2rem 0;
+    padding: 1.5rem;
+  }
+
+  .example-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .example-item img {
+    max-width: 150px;
+  }
+
+  .examples h2 {
+    font-size: 1.25rem;
   }
 }
 

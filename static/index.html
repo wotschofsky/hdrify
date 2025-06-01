@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HDRify</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -51,6 +50,23 @@
       </button>
     </section>
 
+    <section class="examples">
+      <h2>Example: Before & After</h2>
+      <div class="example-grid">
+        <div class="example-item">
+          <img src="./images/goat-sdr.webp" alt="Original SDR image of a goat" loading="lazy">
+          <span class="example-label">Original (SDR)</span>
+        </div>
+        <div class="example-item">
+          <img src="./images/goat-hdr.webp" alt="HDR processed image of a goat with enhanced brightness" loading="lazy">
+          <span class="example-label">HDRified</span>
+        </div>
+      </div>
+      <p class="example-note">
+        The difference is most noticeable on HDR displays with compatible browsers.
+      </p>
+    </section>
+
     <div class="error" id="error" style="display: none;" role="alert">
       <p id="errorMessage"></p>
     </div>
@@ -60,7 +76,7 @@
     </footer>
   </div>
 
-  <script src="script.js"></script>
+  <script src="./script.js"></script>
 </body>
 
 </html>
