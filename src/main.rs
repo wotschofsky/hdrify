@@ -1,8 +1,8 @@
+use base64::{engine::general_purpose, Engine as _};
+use serde::Serialize;
 use std::collections::HashMap;
 use std::process::Command;
 use warp::Filter;
-use serde::{Serialize};
-use base64::{Engine as _, engine::general_purpose};
 
 #[derive(Debug, Serialize)]
 struct ProcessResponse {
@@ -13,7 +13,8 @@ struct ProcessResponse {
 
 async fn handle_upload(form: HashMap<String, String>) -> Result<impl warp::Reply, warp::Rejection> {
     let image_data = form.get("image").unwrap_or(&String::new()).clone();
-    let hdr_value: f32 = form.get("hdr_value")
+    let hdr_value: f32 = form
+        .get("hdr_value")
         .and_then(|v| v.parse().ok())
         .unwrap_or(1.5);
 
@@ -45,8 +46,10 @@ async fn handle_upload(form: HashMap<String, String>) -> Result<impl warp::Reply
     if image_bytes.len() > MAX_SIZE {
         return Ok(warp::reply::json(&ProcessResponse {
             success: false,
-            message: format!("File too large: {:.1}MB. Maximum size is 10MB.",
-                image_bytes.len() as f64 / 1024.0 / 1024.0),
+            message: format!(
+                "File too large: {:.1}MB. Maximum size is 10MB.",
+                image_bytes.len() as f64 / 1024.0 / 1024.0
+            ),
             image_data: None,
         }));
     }
@@ -55,7 +58,8 @@ async fn handle_upload(form: HashMap<String, String>) -> Result<impl warp::Reply
     if !is_supported_image_format(&image_bytes) {
         return Ok(warp::reply::json(&ProcessResponse {
             success: false,
-            message: "Unsupported image format. Please upload JPEG, PNG, or WebP images.".to_string(),
+            message: "Unsupported image format. Please upload JPEG, PNG, or WebP images."
+                .to_string(),
             image_data: None,
         }));
     }
@@ -103,13 +107,11 @@ async fn handle_upload(form: HashMap<String, String>) -> Result<impl warp::Reply
                             image_data: Some(encoded),
                         }))
                     }
-                    Err(e) => {
-                        Ok(warp::reply::json(&ProcessResponse {
-                            success: false,
-                            message: format!("Failed to read processed image: {}", e),
-                            image_data: None,
-                        }))
-                    }
+                    Err(e) => Ok(warp::reply::json(&ProcessResponse {
+                        success: false,
+                        message: format!("Failed to read processed image: {}", e),
+                        image_data: None,
+                    })),
                 }
             } else {
                 let error_msg = String::from_utf8_lossy(&output.stderr);
@@ -120,13 +122,11 @@ async fn handle_upload(form: HashMap<String, String>) -> Result<impl warp::Reply
                 }))
             }
         }
-        Err(e) => {
-            Ok(warp::reply::json(&ProcessResponse {
-                success: false,
-                message: format!("Failed to execute ImageMagick: {}", e),
-                image_data: None,
-            }))
-        }
+        Err(e) => Ok(warp::reply::json(&ProcessResponse {
+            success: false,
+            message: format!("Failed to execute ImageMagick: {}", e),
+            image_data: None,
+        })),
     }
 }
 
@@ -149,7 +149,8 @@ fn is_supported_image_format(bytes: &[u8]) -> bool {
     // WebP: starts with "RIFF" and contains "WEBP"
     if bytes.len() >= 12
         && bytes[0..4] == [0x52, 0x49, 0x46, 0x46] // "RIFF"
-        && bytes[8..12] == [0x57, 0x45, 0x42, 0x50] // "WEBP"
+        && bytes[8..12] == [0x57, 0x45, 0x42, 0x50]
+    // "WEBP"
     {
         return true;
     }
@@ -169,8 +170,7 @@ async fn main() {
         .and_then(handle_upload);
 
     // Root route serves index.html
-    let index = warp::path::end()
-        .and(warp::fs::file("static/index.html"));
+    let index = warp::path::end().and(warp::fs::file("static/index.html"));
 
     let routes = index
         .or(static_files)
@@ -178,7 +178,5 @@ async fn main() {
         .with(warp::cors().allow_any_origin());
 
     println!("Server starting on http://localhost:3000");
-    warp::serve(routes)
-        .run(([0, 0, 0, 0], 3000))
-        .await;
+    warp::serve(routes).run(([0, 0, 0, 0], 3000)).await;
 }
